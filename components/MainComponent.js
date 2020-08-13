@@ -5,9 +5,10 @@ import Contact from './ContactComponent';
 import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
 import { View, Platform, StyleSheet, Text, ScrollView, Image } from 'react-native';
-import { createStackNavigator, DrawerItems,createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, DrawerItems, createDrawerNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
+import Reservation from './ReservationComponent';
 
 
 const DirectoryNavigator = createStackNavigator(
@@ -41,14 +42,35 @@ const DirectoryNavigator = createStackNavigator(
     }
 );
 
-
+const ReservationNavigator = createStackNavigator(
+    {
+        Reservation: { screen: Reservation }
+    },
+    {
+        navigationOptions: ({ navigation }) => ({
+            headerStyle: {
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='tree'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    }
+);
 
 const AboutNavigator = createStackNavigator(
     {
         About: { screen: About }
     },
     {
-        navigationOptions: ({navigation}) => ({
+        navigationOptions: ({ navigation }) => ({
             headerStyle: {
                 backgroundColor: '#5637DD'
             },
@@ -111,14 +133,14 @@ const HomeNavigator = createStackNavigator(
 );
 const CustomDrawerContentComponent = props => (
     <ScrollView>
-        <SafeAreaView 
+        <SafeAreaView
             style={styles.container}
-            forceInset={{top: 'always', horizontal: 'never'}}>
+            forceInset={{ top: 'always', horizontal: 'never' }}>
             <View style={styles.drawerHeader}>
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                     <Image source={require('./images/logo.png')} style={styles.drawerImage} />
                 </View>
-                <View style={{flex: 2}}>
+                <View style={{ flex: 2 }}>
                     <Text style={styles.drawerHeaderText}>NuCamp</Text>
                 </View>
             </View>
@@ -130,9 +152,10 @@ const CustomDrawerContentComponent = props => (
 
 const MainNavigator = createDrawerNavigator(
     {
-        Home: { screen: HomeNavigator,
+        Home: {
+            screen: HomeNavigator,
             navigationOptions: {
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: ({ tintColor }) => (
                     <Icon
                         name='home'
                         type='font-awesome'
@@ -145,7 +168,7 @@ const MainNavigator = createDrawerNavigator(
         Directory: {
             screen: DirectoryNavigator,
             navigationOptions: {
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: ({ tintColor }) => (
                     <Icon
                         name='list'
                         type='font-awesome'
@@ -155,11 +178,26 @@ const MainNavigator = createDrawerNavigator(
                 )
             }
         },
+        Reservation: {
+            screen: ReservationNavigator,
+            navigationOptions: {
+                drawerLabel: 'Reserve Campsite',
+                drawerIcon: ({ tintColor }) => (
+                    <Icon
+                        name='tree'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
+
         About: {
             screen: AboutNavigator,
             navigationOptions: {
                 drawerLabel: 'About Us',
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: ({ tintColor }) => (
                     <Icon
                         name='info-circle'
                         type='font-awesome'
@@ -173,7 +211,7 @@ const MainNavigator = createDrawerNavigator(
             screen: ContactNavigator,
             navigationOptions: {
                 drawerLabel: 'Contact Us',
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: ({ tintColor }) => (
                     <Icon
                         name='address-card'
                         type='font-awesome'
