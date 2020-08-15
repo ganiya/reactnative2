@@ -4,7 +4,18 @@ import { Card } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
 import { PROMOTIONS } from '../shared/promotions';
 import { PARTNERS } from '../shared/partners';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+import Loading from './LoadingComponent';
 
+
+const mapStateToProps = state => {
+    return {
+        campsites: state.campsites,
+        promotions: state.promotions,
+        partners: state.partners
+    };
+};
 function RenderItem(props) {
     const {item} = props;
 
@@ -22,8 +33,8 @@ function RenderItem(props) {
         return (
             <Card
                 featuredTitle={item.name}
-                image={require('./images/react-lake.jpg')}>
-                <Text
+                image={{uri: baseUrl + item.image}}>               
+                 <Text
                     style={{margin: 10}}>
                     {item.description}
                 </Text>
@@ -71,4 +82,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

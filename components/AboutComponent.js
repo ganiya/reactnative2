@@ -3,7 +3,15 @@ import { Text, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 import { PARTNERS } from '../shared/partners';
 import Loading from './LoadingComponent';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 
+
+const mapStateToProps = state => {
+    return {
+      partners: state.partners
+    };
+};
 
 function Mission() {
     return (
@@ -69,8 +77,8 @@ class About extends Component {
                 <Card
                     title='Community Partners'>
                     <FlatList
-                        data={this.state.partners}
-                        renderItem={renderPartner}
+                    data={this.props.partners.partners}
+                    renderItem={renderPartner}
                         keyExtractor={item => item.id.toString()}
                     />
                 </Card>
@@ -78,4 +86,4 @@ class About extends Component {
         );
     }
 }
-export default connect(mapStatetoProps)(About);
+export default connect(mapStateToProps)(About);
