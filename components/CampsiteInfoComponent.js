@@ -5,6 +5,7 @@ import { postFavorite, postComment } from '../redux/ActionCreators';
 import { baseUrl } from '../shared/baseUrl';
 import { connect } from 'react-redux';
 import { CAMPSITES } from '../shared/campsites';
+import { COMMENTS } from '../shared/comments';
 
 const mapStateToProps = state => {
     return {
@@ -138,16 +139,16 @@ class CampsiteInfo extends Component {
                             value={this.state.author}
                         />
                         <Input
-                            placeholder='Author'
+                            placeholder='comment'
                             leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
                             leftIconContainerStyle={{ paddingRight: 10 }}
-                            onChangeText={author => { this.setState({ text: text }) }}
+                            onChangeText={text => { this.setState({ text: text }) }}
                             style={{ paddingVertical: 10 }}
                             value={this.state.text}
                         />
                         <View style={{ margin: 10 }}>
                             <Button
-                                onPress={() => { this.handleComment(campsiteIdI); this.resetForm();}}
+                                onPress={() => { this.handleComment(campsiteId); this.resetForm();}}
                                 color='#5637DD'
                                 title='Submit'
                                 />
