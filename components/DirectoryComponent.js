@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
+import Loading from './LoadingComponent';
 
 class Directory extends Component {
 
@@ -28,7 +29,16 @@ class Directory extends Component {
                 />
             );
         };
-
+        if (this.props.campsites.isLoading) {
+            return <Loading />;
+        }
+        if (this.props.campsites.errMess) {
+            return (
+                <View>
+                    <Text>{this.props.campsites.errMess}</Text>
+               </View>
+            );
+        }
         return (
             <FlatList
                 data={this.state.campsites}

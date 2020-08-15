@@ -14,18 +14,16 @@ class Contact extends Component {
         return (
             <ScrollView >
 
-                <Card wrapperStyle={{margin: 20}}
+                <Card wrapperStyle={{ margin: 20 }}
 
-                 title='Contact Information' >
-                    <Text >
+                    title='Contact Information' >
+                    <Text > 1 Nucamp Way  </Text>
 
-                        1 Nucamp Way {"\n"}
-                    Seattle, WA 98001 {"\n"}
-                    U.S.A. {"\n"} {"\n"}
+                    <Text >Seattle, WA 98001  </Text>
+                    <Text style={{ marginBottom: 10 }}>   U.S.A.  </Text>
 
-                    Phone: 1-206-555-1234 {"\n"}
-                    Email: campsites@nucamp.co
-                    </Text>
+                    <Text>  Phone: 1-206-555-1234 </Text>
+                    <Text>  Email: campsites@nucamp.co </Text>
                 </Card>
 
             </ScrollView>

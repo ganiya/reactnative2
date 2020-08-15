@@ -9,6 +9,7 @@ import { createStackNavigator, DrawerItems, createDrawerNavigator } from 'react-
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 import Reservation from './ReservationComponent';
+import Loading from './LoadingComponent';
 
 
 const DirectoryNavigator = createStackNavigator(
