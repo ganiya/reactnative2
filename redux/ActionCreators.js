@@ -4,14 +4,14 @@ import { baseUrl } from '../shared/baseUrl';
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
         .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                error.response = response;
-                throw error;
-            }
-        },
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -31,63 +31,20 @@ export const addComments = (comments) => ({
     payload: comments
 });
 
-export const addComment = comment => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: comment
-});
-export const postComment = (campsiteId, rating, author, text) => dispatch => {
-    setTimeout(() => {
-        dispatch(addFavorite(campsiteId));
-    }, 2000);
-    const newComment = {
-        campsiteId,
-        rating,
-        author,
-        text
-    };
-
-    newComment.date = new Date().toISOString();
-
-    return fetch(baseUrl + 'comments', {
-        method: "POST",
-        body: JSON.stringify(newComment),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                error.response = response;
-                throw error;
-            }
-        },
-            error => { throw error; }
-        )
-        .then(response => response.json())
-        .then(response => dispatch(addComment(response)))
-        .catch(error => {
-            console.log('post comment', error.message);
-            alert('Your comment could not be posted\nError: ' + error.message);
-        })
-};
-
 export const fetchCampsites = () => dispatch => {
 
     dispatch(campsitesLoading());
 
     return fetch(baseUrl + 'campsites')
         .then(response => {
-            if (response.ok) {
+                if (response.ok) {
                 return response;
-            } else {
-                const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                error.response = response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
                 throw error;
-            }
-        },
+                }
+            },
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -112,19 +69,19 @@ export const addCampsites = campsites => ({
 });
 
 export const fetchPromotions = () => dispatch => {
-
+    
     dispatch(promotionsLoading());
 
     return fetch(baseUrl + 'promotions')
         .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                error.response = response;
-                throw error;
-            }
-        },
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -149,19 +106,19 @@ export const addPromotions = promotions => ({
 });
 
 export const fetchPartners = () => dispatch => {
-
+    
     dispatch(partnersLoading());
 
     return fetch(baseUrl + 'partners')
         .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                error.response = response;
-                throw error;
-            }
-        },
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -184,6 +141,7 @@ export const addPartners = partners => ({
     type: ActionTypes.ADD_PARTNERS,
     payload: partners
 });
+
 export const postFavorite = campsiteId => dispatch => {
     setTimeout(() => {
         dispatch(addFavorite(campsiteId));
@@ -193,4 +151,27 @@ export const postFavorite = campsiteId => dispatch => {
 export const addFavorite = campsiteId => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: campsiteId
+});
+
+export const deleteFavorite = campsiteId => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: campsiteId
+}); 
+
+export const postComment = (campsiteId, rating, author, text) => dispatch => {
+    const newComment = {
+        campsiteId,
+        rating,
+        author,
+        text,
+        date:new Date().toISOString()
+    };
+    setTimeout(() => {
+        dispatch(addComment(newComment));
+    }, 2000);
+};
+
+export const addComment = comment => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
 });

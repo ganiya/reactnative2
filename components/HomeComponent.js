@@ -17,7 +17,7 @@ const mapStateToProps = state => {
     };
 };
 function RenderItem(props) {
-    const {item} = props;
+    const { item } = props;
 
     if (props.isLoading) {
         return <Loading />;
@@ -33,9 +33,9 @@ function RenderItem(props) {
         return (
             <Card
                 featuredTitle={item.name}
-                image={{uri: baseUrl + item.image}}>               
-                 <Text
-                    style={{margin: 10}}>
+                image={{ uri: baseUrl + item.image }}>
+                <Text
+                    style={{ margin: 10 }}>
                     {item.description}
                 </Text>
             </Card>
@@ -57,12 +57,13 @@ class Home extends Component {
 
     static navigationOptions = {
         title: 'Home'
-    }
+    };
+
 
     render() {
         return (
             <ScrollView>
-                  <RenderItem
+                <RenderItem
                     item={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
                     isLoading={this.props.campsites.isLoading}
                     errMess={this.props.campsites.errMess}
@@ -70,14 +71,14 @@ class Home extends Component {
                 <RenderItem
                     item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
                     isLoading={this.props.promotions.isLoading}
-                    errMess={this.props.promotions.errMess} 
+                    errMess={this.props.promotions.errMess}
                 />
                 <RenderItem
                     item={this.props.partners.partners.filter(partner => partner.featured)[0]}
                     isLoading={this.props.partners.isLoading}
-                    errMess={this.props.partners.errMess} 
+                    errMess={this.props.partners.errMess}
                 />
-                </ScrollView>
+            </ScrollView>
         );
     }
 }

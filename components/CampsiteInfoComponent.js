@@ -85,11 +85,28 @@ class CampsiteInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            campsites: CAMPSITES,
-            comments: COMMENTS,
+            rating:5,
+            author:'',
+            text:'',
             favorite: false,
-            ShowModal: false
+            showModal: false
         };
+    }
+    toggleModal() {
+        this.setState({ showModal: !this.state.showModal });
+    }
+    handleComment(campsiteId,rating,author,text)
+    {
+        this.props.postComment(campsiteId,rating,author,text);
+        this.toggleModal();
+    }
+    resetForm() {
+        this.setState({
+            rating:5,
+            author:'',
+            text:'',
+            showModal: false
+        });
     }
     markFavorite(campsiteId) {
         this.props.postFavorite(campsiteId);
@@ -98,11 +115,6 @@ class CampsiteInfo extends Component {
     static navigationOptions = {
         title: 'Campsite Information'
     };
-    toggleModal() {
-        this.setState({ showModal: !this.state.showModal });
-    }
-
-
     render() {
         const campsiteId = this.props.navigation.getParam('campsiteId');
         const campsite = this.props.campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
@@ -148,13 +160,13 @@ class CampsiteInfo extends Component {
                         />
                         <View style={{ margin: 10 }}>
                             <Button
-                                onPress={() => { this.handleComment(campsiteId); this.resetForm();}}
+                                onPress={() => { this.handleComment(campsiteId,this.state.rating,this.state.author,this.state.text); this.resetForm(); }}
                                 color='#5637DD'
                                 title='Submit'
-                                />
-                                 <Button
-                                  onPress={() =>{this.toggleModal(); this.resetForm();}}
-                                 color='#808080'
+                            />
+                            <Button
+                                onPress={() => { this.toggleModal(); this.resetForm(); }}
+                                color='#808080'
                                 title='Cancel'
                             />
                         </View>
